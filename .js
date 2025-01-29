@@ -14,8 +14,8 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let choice = prompt("rock, paper, or scissors?", "");
-    if (choice === null) {
+    let choice = prompt("rock, paper, or scissors?");
+    if (!choice) {
         return;
     }
 
