@@ -25,11 +25,34 @@ function getHumanChoice() {
     return choice;
 }
 
+function findSuperiorChoice(firstChoice, secondChoice) {
+    const presetChoices = [["rock", -1], ["paper", 0], ["scissors", 1]]; // the format is: [name-of-choice, its-value]
+    const availableChoices = [[firstChoice.toLowerCase(), null], [secondChoice.toLowerCase(), null]];
+    for (const presetChoice of presetChoices) {
+        for (const availableChoice of availableChoices) {// if the args are matched, fill up their values
+            if (presetChoice[0] === availableChoice[0]) {
+                availableChoice[1] = presetChoice[1];
+            }
+        }
+    }
+
+    if (availableChoices[0][1] === null || !availableChoices[1][1] === null) {
+        return; // one or both of the choices are not valid
+    }
+    
+    if (availableChoices[0][1] === 0 || availableChoices[1][1] === 0) {
+        return (availableChoices[0][1] > availableChoices[1][1]) ? availableChoices[0][0] : availableChoices[1][0];
+    }
+    if ((- availableChoices[0][1]) < (- availableChoices[1][1])) {// switch their signs so that
+        return availableChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
+    } else { // so choose the assigned value to the preset choices are important
+        return availableChoices[0][0]; // to respect the rules
+    }
+}
+
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+    let humanScore = 0, computerScore = 0, numRound = 5;
     let humanSelection, computerSelection;
-    let numRound = 5;
 
     for (let i = 0; i < numRound; i++) {
         console.log(`Round ${i + 1}:`);
@@ -40,7 +63,7 @@ function playGame() {
         playRound(humanSelection, computerSelection);
     }
 
-    console.log("Overall:");
+    console.log(`Overall: you[${humanScore}] vs computer[${computerScore}]`);
     if (humanScore > computerScore) {
         console.log("You win!");
     } else if (computerScore > humanScore) {
@@ -52,32 +75,22 @@ function playGame() {
     function playRound(humanChoice, computerChoice) {
         if (!humanChoice) {
             computerScore += 1;
-            console.log("You missed your turn!");
-            return;
+            return console.log("You missed your turn!");
         }
         humanChoice = humanChoice.toLowerCase();
         computerChoice = computerChoice.toLowerCase();
     
         if (humanChoice === computerChoice) {
-            console.log("It's a tie!");
-        } else if (humanChoice === "rock" && computerChoice === "paper") {
-            computerScore += 1;
-            console.log("You lose! Paper beats Rock");
-        } else if (humanChoice === "rock" && computerChoice === "scissors") {
+            return console.log("It's a tie!");
+        }
+
+        let superiorChoice = findSuperiorChoice(humanChoice, computerChoice);
+        if (humanChoice === superiorChoice) {
             humanScore += 1;
-            console.log("You win! Rock beats Scissors");
-        } else if (humanChoice === "paper" && computerChoice === "rock") {
-            humanScore += 1;
-            console.log("You win! Paper beats Rock");
-        } else if (humanChoice === "paper" && computerChoice === "scissors") {
+            console.log(`You win (score: ${humanScore}): ${humanChoice} beats ${computerChoice}`);
+        } else if (computerChoice === superiorChoice) {
             computerScore += 1;
-            console.log("You lose! Scissors beat Paper");
-        } else if (humanChoice === "scissors" && computerChoice === "rock") {
-            computerScore += 1;
-            console.log("You lose! Rock beats Scissors");
-        } else if (humanChoice === "scissors" && computerChoice === "paper") {
-            humanScore += 1;
-            console.log("You win! Scissors beat paper");
+            console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
     }
 }
