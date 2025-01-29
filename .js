@@ -28,8 +28,7 @@ function getHumanChoice() {
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
-    let humanSelection;
-    let computerSelection;
+    let humanSelection, computerSelection;
     let numRound = 5;
 
     for (let i = 0; i < numRound; i++) {
