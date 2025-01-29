@@ -5,13 +5,13 @@ function getComputerChoice() {
     let numChoice = Math.floor(Math.random() * 3);
     switch (numChoice) {
         case 0:
-            console.log("rock");
+            return "rock";
             break;
         case 1:
-            console.log("paper");
+            return "paper";
             break;
         case 2:
-            console.log("scissors");
+            return "scissors";
             break;
     }
 }
@@ -25,7 +25,7 @@ function getHumanChoice() {
     while (choice != "rock" && choice != "paper" && choice != "scissors") {
         choice = prompt("rock, paper, or scissors?", "");
     }
-    console.log(choice);
+    return choice;
 }
 
 function playRound(humanChoice, computerChoice) {
