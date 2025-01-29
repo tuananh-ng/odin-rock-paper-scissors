@@ -58,7 +58,7 @@ function playGame() {
         console.log(`Round ${i + 1}:`);
         computerSelection = getComputerChoice();
         humanSelection = getHumanChoice();
-        console.log(`Computer: ${computerSelection}\nYou: ${humanSelection}`);
+        console.log(`You: ${humanSelection}\nComputer: ${computerSelection}`);
 
         playRound(humanSelection, computerSelection);
     }
