@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    numChoice = Math.floor(Math.random() * 3);
+    let numChoice = Math.floor(Math.random() * 3);
     switch (numChoice) {
         case 0:
             console.log("rock");
@@ -11,4 +11,8 @@ function getComputerChoice() {
             console.log("scissors");
             break;
     }
+}
+
+function getHumanChoice() {
+    
 }
