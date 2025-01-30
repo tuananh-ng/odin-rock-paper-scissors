@@ -27,26 +27,23 @@ function getHumanChoice() {
 
 function findSuperiorChoice(firstChoice, secondChoice) {
     const presetChoices = [["rock", -1], ["paper", 0], ["scissors", 1]]; // the format is: [name-of-choice, its-value]
-    const availableChoices = [[firstChoice.toLowerCase(), null], [secondChoice.toLowerCase(), null]];
+    const inspectedChoices = [[firstChoice.toLowerCase(), null], [secondChoice.toLowerCase(), null]];
     for (const presetChoice of presetChoices) {
-        for (const availableChoice of availableChoices) {// if the args are matched, fill up their values
-            if (presetChoice[0] === availableChoice[0]) {
-                availableChoice[1] = presetChoice[1];
+        for (const inspectedChoice of inspectedChoices) {// if the args are matched, fill up their values
+            if (inspectedChoice[0] === presetChoice[0]) {
+                inspectedChoice[1] = presetChoice[1];
             }
         }
     }
-
-    if (availableChoices[0][1] === null || !availableChoices[1][1] === null) {
-        return; // one or both of the choices are not valid
-    }
+    if (inspectedChoices[0][1] === null || !inspectedChoices[1][1] === null) { return; } // one or both of the choices are not valid
     
-    if (availableChoices[0][1] === 0 || availableChoices[1][1] === 0) {
-        return (availableChoices[0][1] > availableChoices[1][1]) ? availableChoices[0][0] : availableChoices[1][0];
+    if (inspectedChoices[0][1] === 0 || inspectedChoices[1][1] === 0) {
+        return (inspectedChoices[0][1] > inspectedChoices[1][1]) ? inspectedChoices[0][0] : inspectedChoices[1][0];
     }
-    if ((- availableChoices[0][1]) < (- availableChoices[1][1])) {// switch their signs so that
-        return availableChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
+    if ((- inspectedChoices[0][1]) < (- inspectedChoices[1][1])) {// switch their signs so that
+        return inspectedChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
     } else { // so choose the assigned value to the preset choices are important
-        return availableChoices[0][0]; // to respect the rules
+        return inspectedChoices[0][0]; // to respect the rules
     }
 }
 
