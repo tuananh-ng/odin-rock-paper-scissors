@@ -85,7 +85,7 @@ function findSuperiorChoice(firstChoice, secondChoice) {
     }
     if ((- inspectedChoices[0][1]) < (- inspectedChoices[1][1])) {// switch their signs so that
         return inspectedChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
-    } else { // so choose the assigned value to the preset choices are important
+    } else { // so choosing the assigned value to the preset choices is important
         return inspectedChoices[0][0]; // to respect the rules
     }
 }
