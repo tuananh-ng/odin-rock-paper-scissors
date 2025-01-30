@@ -1,57 +1,8 @@
-function getComputerChoice() {
-    let numChoice = Math.floor(Math.random() * 3);
-    switch (numChoice) {
-        case 0:
-            return "rock";
-            break;
-        case 1:
-            return "paper";
-            break;
-        case 2:
-            return "scissors";
-            break;
-    }
-}
-
-function getHumanChoice() {
-    let choice = prompt("rock, paper, or scissors?");
-    if (!choice) {
-        return;
-    }
-
-    while (choice != "rock" && choice != "paper" && choice != "scissors") {
-        choice = prompt("rock, paper, or scissors?", "");
-    }
-    return choice;
-}
-
-function findSuperiorChoice(firstChoice, secondChoice) {
-    const presetChoices = [["rock", -1], ["paper", 0], ["scissors", 1]]; // the format is: [name-of-choice, its-value]
-    const inspectedChoices = [[firstChoice.toLowerCase(), null], [secondChoice.toLowerCase(), null]];
-    for (const presetChoice of presetChoices) {
-        for (const inspectedChoice of inspectedChoices) {// if the args are matched, fill up their values
-            if (inspectedChoice[0] === presetChoice[0]) {
-                inspectedChoice[1] = presetChoice[1];
-            }
-        }
-    }
-    if (inspectedChoices[0][1] === null || !inspectedChoices[1][1] === null) { return; } // one or both of the choices are not valid
-    
-    if (inspectedChoices[0][1] === 0 || inspectedChoices[1][1] === 0) {
-        return (inspectedChoices[0][1] > inspectedChoices[1][1]) ? inspectedChoices[0][0] : inspectedChoices[1][0];
-    }
-    if ((- inspectedChoices[0][1]) < (- inspectedChoices[1][1])) {// switch their signs so that
-        return inspectedChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
-    } else { // so choose the assigned value to the preset choices are important
-        return inspectedChoices[0][0]; // to respect the rules
-    }
-}
-
 function playGame() {
-    let humanScore = 0, computerScore = 0, numRound = 5;
+    let humanScore = 0, computerScore = 0, numRounds = 5;
     let humanSelection, computerSelection;
 
-    for (let i = 0; i < numRound; i++) {
+    for (let i = 0; i < numRounds; i++) {
         console.log(`Round ${i + 1}:`);
         computerSelection = getComputerChoice();
         humanSelection = getHumanChoice();
@@ -89,5 +40,52 @@ function playGame() {
             computerScore += 1;
             console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
+    }
+}
+
+function getComputerChoice() {
+    let numChoice = Math.floor(Math.random() * 3);
+    switch (numChoice) {
+        case 0:
+            return "rock";
+            break;
+        case 1:
+            return "paper";
+            break;
+        case 2:
+            return "scissors";
+            break;
+    }
+}
+
+function getHumanChoice() {
+    let choice = prompt("rock, paper, or scissors?");
+    if (!choice) { return; }
+
+    while (choice != "rock" && choice != "paper" && choice != "scissors") {
+        choice = prompt("rock, paper, or scissors?", "");
+    }
+    return choice;
+}
+
+function findSuperiorChoice(firstChoice, secondChoice) {
+    const presetChoices = [["rock", -1], ["paper", 0], ["scissors", 1]]; // the format is: [name-of-choice, its-value]
+    const inspectedChoices = [[firstChoice.toLowerCase(), null], [secondChoice.toLowerCase(), null]];
+    for (const presetChoice of presetChoices) {
+        for (const inspectedChoice of inspectedChoices) {// if the args are matched, fill up their values
+            if (inspectedChoice[0] === presetChoice[0]) {
+                inspectedChoice[1] = presetChoice[1];
+            }
+        }
+    }
+    if (inspectedChoices[0][1] === null || inspectedChoices[1][1] === null) { return; } // one or both of the choices are not valid
+    
+    if (inspectedChoices[0][1] === 0 || inspectedChoices[1][1] === 0) {
+        return (inspectedChoices[0][1] > inspectedChoices[1][1]) ? inspectedChoices[0][0] : inspectedChoices[1][0];
+    }
+    if ((- inspectedChoices[0][1]) < (- inspectedChoices[1][1])) {// switch their signs so that
+        return inspectedChoices[1][0]; //  whichever beats the middle will be beaten up by the bottom
+    } else { // so choose the assigned value to the preset choices are important
+        return inspectedChoices[0][0]; // to respect the rules
     }
 }
