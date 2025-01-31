@@ -44,18 +44,10 @@ function playGame() {
 }
 
 function getComputerChoice() {
-    let numChoice = Math.floor(Math.random() * 3);
-    switch (numChoice) {
-        case 0:
-            return "rock";
-            break;
-        case 1:
-            return "paper";
-            break;
-        case 2:
-            return "scissors";
-            break;
-    }
+    let choiceNumber = Math.floor(Math.random() * 3);
+    const choices = ["rock", "paper", "scissors"];
+
+    return choices[choiceNumber];
 }
 
 function getHumanChoice() {
