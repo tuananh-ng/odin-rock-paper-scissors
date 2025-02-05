@@ -1,3 +1,6 @@
+const start = document.querySelector("#start");
+start.addEventListener("click", playGame);
+
 function playGame() {
     let humanScore = 0, computerScore = 0, numRounds = 5;
     let humanSelection, computerSelection;
