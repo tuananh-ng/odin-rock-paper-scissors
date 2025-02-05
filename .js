@@ -4,6 +4,7 @@ const start = document.querySelector("#start");
 start.addEventListener("click", () => {
     start.textContent = "Restart the game";
 });
+start.addEventListener("click", initTheChoiceSection);
 start.addEventListener("click", playGame);
 
 function playGame() {
@@ -13,7 +14,7 @@ function playGame() {
     for (let i = 0; i < numRounds; i++) {
         console.log(`Round ${i + 1}:`);
         computerSelection = getComputerChoice();
-        humanSelection = getHumanChoice();
+        humanSelection = getComputerChoice();
         console.log(`You: ${humanSelection}\nComputer: ${computerSelection}`);
 
         playRound(humanSelection, computerSelection);
@@ -49,6 +50,27 @@ function playGame() {
             console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
     }
+}
+
+function initTheChoiceSection() {
+    if (document.querySelector(".choices")) {
+        return;
+    }
+    const choiceSect = document.createElement("div");
+    choiceSect.classList.toggle("choices");
+    document.querySelector("#gaming").appendChild(choiceSect);
+
+    const choices = [];
+    const numChoices = 3;
+    for (let i = 0; i < numChoices; i++) {
+        choices[i] = document.createElement("button");
+        choices[i].classList.toggle("choiceBtn");
+        choiceSect.appendChild(choices[i]);
+    }
+
+    choices[0].textContent = "rock";
+    choices[1].textContent = "paper";
+    choices[2].textContent = "scissors";
 }
 
 function getComputerChoice() {
