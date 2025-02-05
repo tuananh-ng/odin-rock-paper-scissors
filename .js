@@ -1,5 +1,7 @@
 const gamingSect = document.querySelector("#gaming");
 const start = document.querySelector("#start");
+const CHOICES = ["rock", "paper", "scissors"];
+
 start.addEventListener("click", () => {
     start.textContent = "Restart the game";
 });
