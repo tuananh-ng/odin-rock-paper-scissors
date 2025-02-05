@@ -3,11 +3,13 @@ const start = document.querySelector("#start");
 
 start.addEventListener("click", () => {
     start.textContent = "Restart the game";
-    const scoreSect = document.createElement("span");
-    scoreSect.classList.toggle("scores");
-    scoreSect.textContent = "You: 0 | Computer: 0";
+    if (!(document.querySelector(".scores"))) {
+        const scoreSect = document.createElement("span");
+        scoreSect.classList.toggle("scores");
+        scoreSect.textContent = "You: 0 | Computer: 0";
 
-    gamingSect.appendChild(scoreSect);
+        gamingSect.appendChild(scoreSect);
+    }
 });
 start.addEventListener("click", initTheChoiceSection);
 start.addEventListener("click", playGame);
