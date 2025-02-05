@@ -3,25 +3,12 @@ const start = document.querySelector("#start");
 
 start.addEventListener("click", () => {
     start.textContent = "Restart the game";
-
-    const scoreText = document.querySelector(".scores");
-    const announcement = document.querySelector(".announcement");
-    if (!scoreText) {
-        const scoreSect = document.createElement("span");
-        scoreSect.classList.toggle("scores");
-        scoreSect.textContent = "You: 0 | Computer: 0";
-
-        gamingSect.appendChild(scoreSect);
-    } else {
-        scoreText.textContent = "You: 0 | Computer: 0";
-    }
-
-    if (announcement) {
-        gamingSect.removeChild(announcement);
-    }
+    initTheScoreTextSection();
+    initTheChoiceSection();
+    cleanUpTheAnnouncement();
+    playGame();
+    
 });
-start.addEventListener("click", initTheChoiceSection);
-start.addEventListener("click", playGame);
 
 function playGame() {
     let humanScore = 0, computerScore = 0;
@@ -32,7 +19,10 @@ function playGame() {
         button.addEventListener("click", () => {
             if (humanScore === 5 || computerScore === 5) {
                 const finalMessage = document.querySelector(".announcement");
-                if (finalMessage) {
+                if (!finalMessage) {
+                    return;
+                }
+                else {
                     finalMessage.textContent = `Overall: you[${humanScore}] vs computer[${computerScore}]. `;
                 }
 
@@ -121,6 +111,26 @@ function initTheChoiceSection() {
     choices[0].textContent = "rock";
     choices[1].textContent = "paper";
     choices[2].textContent = "scissors";
+}
+
+function initTheScoreTextSection() {
+    const scoreText = document.querySelector(".scores");
+    if (!scoreText) {
+        const scoreSect = document.createElement("span");
+        scoreSect.classList.toggle("scores");
+        scoreSect.textContent = "You: 0 | Computer: 0";
+
+        gamingSect.appendChild(scoreSect);
+    } else {
+        scoreText.textContent = "You: 0 | Computer: 0";
+    }
+}
+
+function cleanUpTheAnnouncement() {
+    const announcement = document.querySelector(".announcement");
+    if (announcement) {
+        gamingSect.removeChild(announcement);
+    }
 }
 
 function getComputerChoice() {
