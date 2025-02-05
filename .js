@@ -1,8 +1,11 @@
 const start = document.querySelector("#start");
+start.addEventListener("click", () => {
+    start.textContent = "Restart the game";
+});
 start.addEventListener("click", playGame);
 
 function playGame() {
-    let humanScore = 0, computerScore = 0, numRounds = 5;
+    let humanScore = 0, computerScore = 0, numRounds = 1;
     let humanSelection, computerSelection;
 
     for (let i = 0; i < numRounds; i++) {
