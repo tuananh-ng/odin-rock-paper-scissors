@@ -5,6 +5,7 @@ start.addEventListener("click", () => {
     start.textContent = "Restart the game";
 
     const scoreText = document.querySelector(".scores");
+    const announcement = document.querySelector(".announcement");
     if (!scoreText) {
         const scoreSect = document.createElement("span");
         scoreSect.classList.toggle("scores");
@@ -13,6 +14,10 @@ start.addEventListener("click", () => {
         gamingSect.appendChild(scoreSect);
     } else {
         scoreText.textContent = "You: 0 | Computer: 0";
+    }
+
+    if (announcement) {
+        gamingSect.removeChild(announcement);
     }
 });
 start.addEventListener("click", initTheChoiceSection);
@@ -26,12 +31,20 @@ function playGame() {
     choiceButtons.forEach((button) => {
         button.addEventListener("click", () => {
             if (humanScore === 5 || computerScore === 5) {
+                const finalMessage = document.querySelector(".announcement");
+                if (finalMessage) {
+                    finalMessage.textContent = `Overall: you[${humanScore}] vs computer[${computerScore}]`;
+                }
+
                 console.log(`Overall: you[${humanScore}] vs computer[${computerScore}]`);
                 if (humanScore > computerScore) {
+                    finalMessage.textContent.concat("You win!");
                     console.log("You win!");
                 } else if (computerScore > humanScore) {
+                    finalMessage.textContent.concat("You lose!");
                     console.log("You lose!");
                 } else {
+                    finalMessage.textContent.concat("Everybody wins!");
                     console.log("Everybody wins!");
                 }
                 return;
@@ -54,16 +67,27 @@ function playGame() {
         humanChoice = humanChoice.toLowerCase();
         computerChoice = computerChoice.toLowerCase();
     
+        if (!(document.querySelector(".announcement"))) {
+            const announcement = document.createElement("p");
+            announcement.classList.toggle("announcement");
+            gamingSect.appendChild(announcement);
+        }
+
         if (humanChoice === computerChoice) {
+            document.querySelector(".announcement").textContent = "It's a tie!";
             return console.log("It's a tie!");
         }
 
         let superiorChoice = findSuperiorChoice(humanChoice, computerChoice);
         if (humanChoice === superiorChoice) {
             humanScore += 1;
+
+            document.querySelector(".announcement").textContent = `You win (score: ${humanScore}): ${humanChoice} beats ${computerChoice}`;
             console.log(`You win (score: ${humanScore}): ${humanChoice} beats ${computerChoice}`);
         } else if (computerChoice === superiorChoice) {
             computerScore += 1;
+
+            document.querySelector(".announcement").textContent = `You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`;
             console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
     }
