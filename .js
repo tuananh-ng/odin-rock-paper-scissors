@@ -33,18 +33,18 @@ function playGame() {
             if (humanScore === 5 || computerScore === 5) {
                 const finalMessage = document.querySelector(".announcement");
                 if (finalMessage) {
-                    finalMessage.textContent = `Overall: you[${humanScore}] vs computer[${computerScore}]`;
+                    finalMessage.textContent = `Overall: you[${humanScore}] vs computer[${computerScore}]. `;
                 }
 
                 console.log(`Overall: you[${humanScore}] vs computer[${computerScore}]`);
                 if (humanScore > computerScore) {
-                    finalMessage.textContent.concat("You win!");
+                    finalMessage.textContent = finalMessage.textContent.concat("You win!");
                     console.log("You win!");
                 } else if (computerScore > humanScore) {
-                    finalMessage.textContent.concat("You lose!");
+                    finalMessage.textContent = finalMessage.textContent.concat("You lose!");
                     console.log("You lose!");
                 } else {
-                    finalMessage.textContent.concat("Everybody wins!");
+                    finalMessage.textContent = finalMessage.textContent.concat("Everybody wins!");
                     console.log("Everybody wins!");
                 }
                 return;
@@ -82,12 +82,12 @@ function playGame() {
         if (humanChoice === superiorChoice) {
             humanScore += 1;
 
-            document.querySelector(".announcement").textContent = `You win (score: ${humanScore}): ${humanChoice} beats ${computerChoice}`;
+            document.querySelector(".announcement").textContent = `You win: ${humanChoice} beats ${computerChoice}`;
             console.log(`You win (score: ${humanScore}): ${humanChoice} beats ${computerChoice}`);
         } else if (computerChoice === superiorChoice) {
             computerScore += 1;
 
-            document.querySelector(".announcement").textContent = `You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`;
+            document.querySelector(".announcement").textContent = `You lose: ${computerChoice} beats ${humanChoice}`;
             console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
     }
