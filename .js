@@ -11,13 +11,17 @@ function playGame() {
     let humanScore = 0, computerScore = 0, numRounds = 1;
     let humanSelection, computerSelection;
 
-    for (let i = 0; i < numRounds; i++) {
-        console.log(`Round ${i + 1}:`);
-        computerSelection = getComputerChoice();
-        humanSelection = getComputerChoice();
-        console.log(`You: ${humanSelection}\nComputer: ${computerSelection}`);
+    const choiceButtons = document.querySelectorAll(".choiceBtn");
 
-        playRound(humanSelection, computerSelection);
+    for (let i = 0; i < numRounds; i++) {
+        choiceButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                computerSelection = getComputerChoice();
+                humanSelection = button.textContent;
+                console.log(`You: ${humanSelection}\nComputer: ${computerSelection}`);
+                playRound(humanSelection, computerSelection);
+            });
+        });
     }
 
     console.log(`Overall: you[${humanScore}] vs computer[${computerScore}]`);
