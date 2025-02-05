@@ -3,6 +3,11 @@ const start = document.querySelector("#start");
 
 start.addEventListener("click", () => {
     start.textContent = "Restart the game";
+    const scoreSect = document.createElement("span");
+    scoreSect.classList.toggle("scores");
+    scoreSect.textContent = "You: 0 | Computer: 0";
+
+    gamingSect.appendChild(scoreSect);
 });
 start.addEventListener("click", initTheChoiceSection);
 start.addEventListener("click", playGame);
@@ -31,6 +36,7 @@ function playGame() {
             console.log(`You: ${humanSelection}\nComputer: ${computerSelection}`);
 
             playRound(humanSelection, computerSelection);
+            updateDisplayingScores();
         });
     });
 
@@ -54,6 +60,15 @@ function playGame() {
             computerScore += 1;
             console.log(`You lose (score: ${humanScore}): ${computerChoice} beats ${humanChoice}`);
         }
+    }
+
+    function updateDisplayingScores() {
+        const scoreText = document.querySelector(".scores");
+        if (!scoreText) {
+            return;
+        }
+
+        scoreText.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
     }
 }
 
